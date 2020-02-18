@@ -1,0 +1,36 @@
+*** Settings ***
+Library           Selenium2Library
+
+*** Variables ***
+${LOGIN_URL}      http://biscontroltest.lab-bizview.com/
+${WELCOME_URL}    ${LOGIN_URL}Main3.aspx
+${ERROR_URL}      ${LOGIN_URL}
+${ERROR_NOTIFY}    //<![CDATA[Notify('please input username or password');//]]>
+
+*** Keywords ***
+Open the login page
+    Open Browser    ${LOGIN_URL}    gc
+    Maximize Browser Window
+    Set Selenium Speed    0
+
+Go to login page
+    Go TO    ${LOGIN_URL}
+
+Fill in username
+    [Arguments]    ${username}
+    Input Text    txtUserName    ${username}
+
+Fill in password
+    [Arguments]    ${password}
+    Input Text    txtPassword    ${password}
+
+Submit data to system
+    Click Button    LoginButton
+
+Welcome page should be open
+    Location Should Be    ${WELCOME_URL}
+    Title Should Be    Object reference not set to an instance of an object.
+
+Login Should Have Failed
+    Location Should Be    ${ERROR_URL}
+    Execute Javascript    ${ERROR_NOTIFY}

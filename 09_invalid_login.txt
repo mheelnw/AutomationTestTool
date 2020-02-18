@@ -1,0 +1,29 @@
+*** Settings ***
+Suite Setup       Open the login page
+Suite Teardown    Close Browser
+Test Setup        Go to login page
+Test Template     Login With Invalid Credentials Should Fail
+Resource          09_resource.txt
+
+*** Test Cases ***    User Name    Password
+Invalid Username      invalid      mode
+
+Invalid Password      kittiwat     invalid
+
+Invalid Username And Password
+                      invalid      whatever
+
+Empty Username        ${EMPTY}     xxx
+
+Empty Password        kittiwat     ${EMPTY}
+
+Empty Username And Password
+                      ${EMPTY}     ${EMPTY}
+
+*** Keywords ***
+Login With Invalid Credentials Should Fail
+    [Arguments]    ${username}    ${password}
+    Fill in username    ${username}
+    Fill in password    ${password}
+    Submit data to system
+    Login Should Have Failed
