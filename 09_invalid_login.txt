@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Setup       Open the login page
+Suite Setup       Open the login page by headless
 Suite Teardown    Close Browser
 Test Setup        Go to login page
 Test Template     Login With Invalid Credentials Should Fail
